@@ -1,0 +1,6 @@
+[submodule "Instalife-backend"]
+	path = Instalife-backend
+	url = https://github.com/SourabhJyotiDas/Instalife-Backend
+[submodule "backend"]
+	path = backend
+	url = https://github.com/SourabhJyotiDas/Instalife-Backend

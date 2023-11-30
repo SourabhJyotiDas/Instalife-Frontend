@@ -18,8 +18,6 @@ export default function MyFollowing({ element }) {
       dispatch(loadUser())
    };
 
-   // console.log(element);
-
    useEffect(() => {
       element && element.followers.map((item) => {
          if (item === me._id) {

@@ -20,14 +20,12 @@ export default function Likes({ data }) {
 
    const followHandler = async () => {
       if (location.pathname === "/account") {
-         console.log("You are on Account");
          await dispatch(followAndUnfollowUser(data._id));
          await dispatch(loadUser())
          await dispatch(getMyPosts());
          setFollowing(!following);
       }
       if (location.pathname === "/") {
-         console.log("You are on Homepage");
          await dispatch(followAndUnfollowUser(data._id));
          await dispatch(getFollowingPosts());
          await dispatch(getAllUsers());

@@ -18,7 +18,6 @@ export default function Login() {
 
    const loginHandle = (e) => {
       e.preventDefault()
-      // console.log(email,password);
       setEmail("")
       setPassword("")
       dispatch(loginUser(email, password))

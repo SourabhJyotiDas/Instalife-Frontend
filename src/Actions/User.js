@@ -19,8 +19,6 @@ export const loginUser = (email, password) => async (dispatch) => {
       }
     );
 
-    console.log(data);
-
     dispatch({
       type: "LoginSuccess",
       payload: data.user,

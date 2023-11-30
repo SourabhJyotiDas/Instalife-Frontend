@@ -25,7 +25,6 @@ export default function User({ data }) {
 
 
    const followHandler = async () => {
-      console.log("clicked");
       await dispatch(followAndUnfollowUser(data._id));
       setFollowing(!following);
       await dispatch(getFollowingPosts());

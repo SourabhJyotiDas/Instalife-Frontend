@@ -47,7 +47,6 @@ export default function UserProfile() {
          await dispatch(getAllUsers());
       }
       fetchData();
-      console.log(params.id);
    }, [dispatch, params.id, me._id, commentMessage, likeMessage, followUserMessage]);
 
    useEffect(() => {

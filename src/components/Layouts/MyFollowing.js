@@ -7,8 +7,10 @@ import Loader from "../Loader"
 
 
 export default function MyFollowing({ element }) {
+
+
    const dispatch = useDispatch()
-   const { user: me,loading } = useSelector((state) => state.user);
+   const { user: me, loading } = useSelector((state) => state.user);
 
    const [following, setFollowing] = useState(false);
 
@@ -30,7 +32,7 @@ export default function MyFollowing({ element }) {
    return (
       <>
          {
-            loading ? <Loader message={"Updating"} /> :
+            loading && element ? <Loader message={"Updating"} /> :
                <div className="flex items-center  hover:scale-105 transition duration-700 ease-in-out">
                   <div className='w-[100%] flex justify-between items-center text-xs md:text-sm md:space-x-5'>
                      <Link to={`/user/${element._id}`}  >

@@ -16,7 +16,6 @@ export default function CommentCard({ userId, name, avatar, comment, commentId, 
    const { user } = useSelector((state) => state.user);
    const { loading: commentLoading, error: commentError, message: commentMessage } = useSelector((state) => state.comment);
 
-
    const deleteCommentHandle = () => {
       dispatch(deleteCommentOnPost(postId, commentId));
 

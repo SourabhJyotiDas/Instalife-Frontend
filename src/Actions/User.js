@@ -38,7 +38,7 @@ export const loadUser = () => async (dispatch) => {
     });
 
     const { data } = await axios.get(`${server}/me`, { withCredentials: true });
-
+    console.log("From Action", data);
     dispatch({
       type: "LoadUserSuccess",
       payload: data.user,
@@ -95,7 +95,7 @@ export const getAllUsers = (name = "") => async (dispatch) => {
     });
 
     const { data } = await axios.get(`${server}/users?name=${name}`, { withCredentials: true });
-    
+
     dispatch({
       type: "allUsersSuccess",
       payload: data.users,
@@ -115,6 +115,7 @@ export const logoutUser = () => async (dispatch) => {
     });
 
     await axios.get(`${server}/logout`, { withCredentials: true });
+    await axios.get(`${server}/googlelogout`, { withCredentials: true });
 
     dispatch({
       type: "LogoutUserSuccess",

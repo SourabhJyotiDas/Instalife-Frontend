@@ -4,6 +4,7 @@ import { loginUser } from '../Actions/User';
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from 'react-toastify';
 import Loader from './Loader';
+import { FcGoogle } from "react-icons/fc";
 
 export default function Login() {
 
@@ -33,10 +34,14 @@ export default function Login() {
          });
          dispatch({ type: "clearErrors" });
       }
-     
-   }, [dispatch, error, ])
 
+   }, [dispatch, error,])
 
+   let myServer = "http://localhost:5000/api/v1";
+
+   const handleGoogleLogin = () => {
+      window.open(`${myServer}/googlelogin`, "_self");
+   };
 
    return (
       <>
@@ -48,7 +53,10 @@ export default function Login() {
                      <form onSubmit={loginHandle} className='flex flex-col justify-center items-center mt-10'>
                         <input value={email} onChange={(e) => { setEmail(e.target.value) }} type="email" placeholder='Email' className='w-[90%] py-2 border border-gray outline-none my-2 px-2' />
                         <input value={password} onChange={(e) => { setPassword(e.target.value) }} type="password" placeholder='Password' className='w-[90%] py-2 border border-gray outline-none my-2 px-2' />
-                        <button type='submit' className=' flex justify-center items-center bg-purple-800 w-[90%] py-3 my-5  text-white font-semibold'>Log in</button>
+                        <button type='submit' className=' flex justify-center items-center bg-purple-500 w-[90%] py-3   font-semibold'>Log in</button>
+                        <button className=' flex justify-center items-center bg-white w-[90%] py-3 my-5  font-semibold' onClick={handleGoogleLogin}>
+                           <FcGoogle className='text-2xl mr-3'/>Signin with Google
+                        </button>
                         <div className='underline'> <Link to="/register">New user ? Register</Link></div>
                      </form>
 

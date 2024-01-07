@@ -72,21 +72,20 @@ export const deleteCommentOnPost = (id, commentId) => async (dispatch) => {
   }
 };
 
-export const createNewPost = (userData) => async (dispatch) => {
+export const createNewPost = (image, caption) => async (dispatch) => {
   try {
     dispatch({
       type: "newPostRequest",
     });
 
-    const config = { headers: { "Content-Type": "multipart/form-data" } }
-
     const { data } = await axios.post(
-      `${server}/post/upload`, { userData },
+      `${server}/post/upload`,
+      { image, caption },
       {
         headers: {
           "Content-Type": "application/json",
         },
-        withCredentials: true,
+        withCredentials: true
       }
     );
 
@@ -138,7 +137,7 @@ export const getExploreData = () => async (dispatch) => {
       type: "allPostsRequest",
     });
 
-    const { data } = await axios.get(`${server}/post/allposts`,{withCredentials:true});
+    const { data } = await axios.get(`${server}/post/allposts`, { withCredentials: true });
     dispatch({
       type: "allPostsSuccess",
       payload: data.posts,
@@ -157,7 +156,7 @@ export const deletePost = (id) => async (dispatch) => {
       type: "deletePostRequest",
     });
 
-    const { data } = await axios.delete(`${server}/post/${id}`,{withCredentials:true});
+    const { data } = await axios.delete(`${server}/post/${id}`, { withCredentials: true });
     dispatch({
       type: "deletePostSuccess",
       payload: data.message,

@@ -11,40 +11,46 @@ export default function NewPost() {
    const { loading: newPostLoading, error: newPostError, message: newPostMessage } = useSelector((state) => state.newPost)
 
    const [caption, setcaption] = useState("")
-   const [images, setImages] = useState([]);
-   const [imagesPreview, setImagesPreview] = useState([]);
+   const [image, setImage] = useState("");
+
+   // const handleImageChange = (e) => {
+   //    const files = Array.from(e.target.files);
+
+   //    setImages([]);
+   //    setImagesPreview([]);
+
+   //    files.forEach((file) => {
+   //       const reader = new FileReader();
+
+   //       reader.onload = () => {
+   //          if (reader.readyState === 2) {
+   //             setImagesPreview((old) => [...old, reader.result]);
+   //             setImages((old) => [...old, reader.result]);
+   //          }
+   //       };
+   //       reader.readAsDataURL(file);
+   //    });
+   // };
 
    const handleImageChange = (e) => {
-      const files = Array.from(e.target.files);
+      const file = e.target.files[0];
 
-      setImages([]);
-      setImagesPreview([]);
+      const Reader = new FileReader();
+      Reader.readAsDataURL(file);
 
-      files.forEach((file) => {
-         const reader = new FileReader();
-
-         reader.onload = () => {
-            if (reader.readyState === 2) {
-               setImagesPreview((old) => [...old, reader.result]);
-               setImages((old) => [...old, reader.result]);
-            }
-         };
-         reader.readAsDataURL(file);
-      });
+      Reader.onload = () => {
+         if (Reader.readyState === 2) {
+            setImage(Reader.result);
+         }
+      };
    };
 
    const submitHandler = async (e) => {
       e.preventDefault();
-      const myForm = new FormData();
-      myForm.set("caption", caption);
 
-      images.forEach((image) => {
-         myForm.append("images", image);
-      });
-      await dispatch(createNewPost(myForm));
-      setImages(null);
+      await dispatch(createNewPost(image,caption));
+      setImage(null);
       setcaption("");
-      setImagesPreview([]);
    };
 
    useEffect(() => {
@@ -82,18 +88,23 @@ export default function NewPost() {
                <input
                   type="file"
                   accept="image/*"
-                  multiple
+                  // multiple
                   onChange={handleImageChange} />
 
                <input className='outline-none p-3 w-[100%] border border-gray-400' type="text" value={caption} placeholder="Caption" onChange={(e) => { setcaption(e.target.value) }} />
 
                <div className=" h-[100%] w-[100%]  flex md:flex-col  space-x-3 md:space-x-0 my-2 p-2  overflow-x-scroll ">
                   <div className='flex items-center h-full '>
-                     {imagesPreview && imagesPreview.map((image, index) => (
+                     {/* {imagesPreview && imagesPreview.map((image, index) => (
                         <img key={index} src={image}
                            className=' border-2 border-white'
                            alt="Product Preview" />
-                     ))}
+                     ))} */}
+                     {
+                        image ? <img src={image}
+                           className=' border-2 border-white'
+                           alt=" " /> : null
+                     }
                   </div>
                </div>
 

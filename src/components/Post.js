@@ -168,7 +168,7 @@ export default function Post({ data, isDelete = false, isAccount = false, }) {
                </div>
 
                <div className="h-[100]">
-                  {
+                  {/* {
                      data && data.images.length > 1 ?
                         <Carousel 
                         responsive={responsive}
@@ -189,9 +189,9 @@ export default function Post({ data, isDelete = false, isAccount = false, }) {
                            {data && data.images.map((element, index) => {
                               return <img className='h-[100%]' key={index} src={element.url} alt="" />
                            })}
-                        </Carousel> :
-                        <img className='h-[100%]' src={data.images[0].url} alt="" />
-                  }
+                        </Carousel> : */}
+                        <img className='h-[100%]' src={data.image.url} alt="" />
+                   {/* } */}
                </div>
 
                <div className='px-2'>

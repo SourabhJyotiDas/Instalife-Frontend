@@ -10,7 +10,6 @@ export default function Home() {
 
   const dispatch = useDispatch()
   const { posts, error } = useSelector((state) => state.postOfFollowing);
-  console.log(posts);
   const { error: likeError } = useSelector((state) => state.like);
   const { users, loading: allUsersLoading } = useSelector((state) => state.allUsers);
 

@@ -55,9 +55,7 @@ export const getFollowingPosts = () => async (dispatch) => {
     dispatch({
       type: "postOfFollowingRequest",
     });
-    console.log("wORKING");
     const { data } = await axios.get(`${server}/posts`, { withCredentials: true });
-    console.log(data);
     dispatch({
       type: "postOfFollowingSuccess",
       payload: data.posts,

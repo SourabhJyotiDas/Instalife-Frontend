@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { toast } from 'react-toastify';
 import Loader from './Loader';
 import { FcGoogle } from "react-icons/fc";
+import { server } from '../store';
 
 export default function Login() {
 
@@ -37,10 +38,9 @@ export default function Login() {
 
    }, [dispatch, error,])
 
-   let myServer = "http://localhost:5000/api/v1";
 
    const handleGoogleLogin = () => {
-      window.open(`${myServer}/googlelogin`, "_self");
+      window.open(`${server}/googlelogin`, "_self");
    };
 
    return (

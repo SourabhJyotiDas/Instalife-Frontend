@@ -38,7 +38,6 @@ export const loadUser = () => async (dispatch) => {
     });
 
     const { data } = await axios.get(`${server}/me`, { withCredentials: true });
-    console.log("From Action", data);
     dispatch({
       type: "LoadUserSuccess",
       payload: data.user,

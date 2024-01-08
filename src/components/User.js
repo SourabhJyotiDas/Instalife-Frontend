@@ -17,11 +17,11 @@ export default function User({ data }) {
 
    useEffect(() => {
       data && data.followers.map((item) => {
-         if (item === me&&me._id) {
+         if (item === me._id) {
             setFollowing(!following);
          }
       });
-   }, [me && me._id, data, dispatch]);
+   }, [me._id, data, dispatch]);
 
 
    const followHandler = async () => {

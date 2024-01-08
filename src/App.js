@@ -15,7 +15,6 @@ import { lazy, Suspense } from "react";
 import Loader from "./components/Loader.js";
 const Login = lazy(() => import("./components/Login.js"));
 const Home = lazy(() => import("./components/Home.js"))
-const Signup = lazy(() => import("./components/Signup.js"))
 const Account = lazy(() => import("./components/Account.js"))
 const NewPost = lazy(() => import("./components/NewPost.js"))
 const UpdateProfile = lazy(() => import("./components/UpdateProfile.js"))
@@ -51,7 +50,6 @@ function App() {
               <Routes>
                 <Route exact path="/" element={isAuthenticated ? <Home /> : <Login />} />
                 <Route exact path="/login" element={<Login />} />
-                <Route exact path="/register" element={<Signup />} />
                 <Route exact path="/account" element={isAuthenticated ? <Account /> : <Login />} />
                 <Route exact path="/newpost" element={isAuthenticated ? <NewPost /> : <Login />} />
                 <Route exact path="/update/profile" element={isAuthenticated ? <UpdateProfile /> : <Login />} />

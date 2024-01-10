@@ -7,8 +7,6 @@ const store = configureStore({
     user: userReducer,
     postOfFollowing: postOfFollowingReducer,
     allUsers: allUsersReducer,
-
-
     like: likeReducer,
     comment: commentReducer,
     newPost: newPostReducer,
@@ -17,7 +15,6 @@ const store = configureStore({
     followUser: followUserReducer,
     updateProfile: updateProfileReducer,
     explore: exploreAllPosts,
-
     myPosts: myPostsReducer,
     userProfile: userProfileReducer,
     userPosts: userPostsReducer,
@@ -27,4 +24,4 @@ const store = configureStore({
 
 export default store;
 
-export const server = "https://instalife.vercel.app/api/v1"
+export const server = "https://instalife.vercel.app/api/v1";

@@ -24,6 +24,7 @@ const Search = lazy(() => import("./components/Search.js"))
 const Message = lazy(() => import("./components/Message.js"))
 const Explore = lazy(() => import("./components/Explore.js"))
 import Navbar from "./components/Navbar.js"
+import Signup from "./components/Signup.js";
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
               <Routes>
                 <Route exact path="/" element={isAuthenticated ? <Home /> : <Login />} />
                 <Route exact path="/login" element={<Login />} />
+                <Route exact path="/register" element={<Signup />} />
                 <Route exact path="/account" element={isAuthenticated ? <Account /> : <Login />} />
                 <Route exact path="/newpost" element={isAuthenticated ? <NewPost /> : <Login />} />
                 <Route exact path="/update/profile" element={isAuthenticated ? <UpdateProfile /> : <Login />} />

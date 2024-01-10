@@ -1,35 +1,64 @@
 import axios from "axios";
 import { server } from "../store";
 
+export const registerUser = (name, email, password, avatar) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "RegisterRequest",
+    });
 
-// export const loginUser = (email, password) => async (dispatch) => {
-//   try {
-//     dispatch({
-//       type: "LoginRequest",
-//     });
+    const { data } = await axios.post(
+      `${server}/register`,
+      { name, email, password, avatar },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true
+      }
+    );
 
-//     const { data } = await axios.post(
-//       `${server}/login`,
-//       { email, password },
-//       {
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         withCredentials: true,
-//       }
-//     );
+    dispatch({
+      type: "RegisterSuccess",
+      payload: data.user,
+    });
+  } catch (error) {
+    dispatch({
+      type: "RegisterFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
 
-//     dispatch({
-//       type: "LoginSuccess",
-//       payload: data.user,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: "LoginFailure",
-//       payload: error.response.data.message,
-//     });
-//   }
-// };
+
+export const loginUser = (email, password) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "LoginRequest",
+    });
+
+    const { data } = await axios.post(
+      `${server}/login`,
+      { email, password },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+
+    dispatch({
+      type: "LoginSuccess",
+      payload: data.user,
+    });
+  } catch (error) {
+    dispatch({
+      type: "LoginFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
 
 export const loadUser = () => async (dispatch) => {
   try {
@@ -125,35 +154,7 @@ export const logoutUser = () => async (dispatch) => {
   }
 };
 
-export const registerUser =
-  (name, email, password, avatar) => async (dispatch) => {
-    try {
-      dispatch({
-        type: "RegisterRequest",
-      });
 
-      const { data } = await axios.post(
-        `${server}/register`,
-        { name, email, password, avatar },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true
-        }
-      );
-
-      dispatch({
-        type: "RegisterSuccess",
-        payload: data.user,
-      });
-    } catch (error) {
-      dispatch({
-        type: "RegisterFailure",
-        payload: error.response.data.message,
-      });
-    }
-  };
 
 export const updateProfile = (name, email, avatar) => async (dispatch) => {
   try {

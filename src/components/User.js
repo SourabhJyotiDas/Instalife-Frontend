@@ -21,11 +21,11 @@ export default function User({ data }) {
             setFollowing(!following);
          }
       });
-   }, [me._id, data, dispatch]);
+   }, [me._id, data && data, dispatch]);
 
 
    const followHandler = async () => {
-      await dispatch(followAndUnfollowUser(data._id));
+      await dispatch(followAndUnfollowUser(data && data._id));
       setFollowing(!following);
       await dispatch(getFollowingPosts());
       await dispatch(loadUser())

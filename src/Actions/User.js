@@ -1,7 +1,7 @@
 import axios from "axios";
 import { server } from "../store";
 
-export const registerUser = (name, email, password, avatar) => async (dispatch) => {
+export const registerUser = (formData) => async (dispatch) => {
   try {
     dispatch({
       type: "RegisterRequest",
@@ -9,10 +9,10 @@ export const registerUser = (name, email, password, avatar) => async (dispatch) 
 
     const { data } = await axios.post(
       `${server}/register`,
-      { name, email, password, avatar },
+      formData,
       {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
         withCredentials: true
       }
@@ -156,7 +156,7 @@ export const logoutUser = () => async (dispatch) => {
 
 
 
-export const updateProfile = (name, email, avatar) => async (dispatch) => {
+export const updateProfile = (formData) => async (dispatch) => {
   try {
     dispatch({
       type: "updateProfileRequest",
@@ -164,10 +164,10 @@ export const updateProfile = (name, email, avatar) => async (dispatch) => {
 
     const { data } = await axios.put(
       `${server}/update/profile`,
-      { name, email, avatar },
+      formData,
       {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
         withCredentials: true
       }

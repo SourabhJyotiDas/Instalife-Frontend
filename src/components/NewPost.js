@@ -11,26 +11,8 @@ export default function NewPost() {
    const { loading: newPostLoading, error: newPostError, message: newPostMessage } = useSelector((state) => state.newPost)
 
    const [caption, setcaption] = useState("")
+   const [imagePrev, setImagePrev] = useState("");
    const [image, setImage] = useState("");
-
-   // const handleImageChange = (e) => {
-   //    const files = Array.from(e.target.files);
-
-   //    setImages([]);
-   //    setImagesPreview([]);
-
-   //    files.forEach((file) => {
-   //       const reader = new FileReader();
-
-   //       reader.onload = () => {
-   //          if (reader.readyState === 2) {
-   //             setImagesPreview((old) => [...old, reader.result]);
-   //             setImages((old) => [...old, reader.result]);
-   //          }
-   //       };
-   //       reader.readAsDataURL(file);
-   //    });
-   // };
 
    const handleImageChange = (e) => {
       const file = e.target.files[0];
@@ -38,18 +20,20 @@ export default function NewPost() {
       const Reader = new FileReader();
       Reader.readAsDataURL(file);
 
-      Reader.onload = () => {
-         if (Reader.readyState === 2) {
-            setImage(Reader.result);
-         }
+      Reader.onloadend = () => {
+         setImagePrev(Reader.result);
+         setImage(file);
       };
    };
 
    const submitHandler = async (e) => {
       e.preventDefault();
-
-      await dispatch(createNewPost(image,caption));
+      const myForm = new FormData();
+      myForm.append('caption', caption);
+      myForm.append('file', image);
+      await dispatch(createNewPost(myForm));
       setImage(null);
+      setImagePrev(null);
       setcaption("");
    };
 
@@ -101,7 +85,7 @@ export default function NewPost() {
                            alt="Product Preview" />
                      ))} */}
                      {
-                        image ? <img src={image}
+                        imagePrev ? <img src={imagePrev}
                            className=' border-2 border-white'
                            alt=" " /> : null
                      }

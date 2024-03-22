@@ -12,6 +12,7 @@ export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState(profile);
+  const [avatarPrev, setAvatarPrev] = useState(profile);
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState("password");
 
@@ -25,19 +26,23 @@ export default function Signup() {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
 
-    const Reader = new FileReader();
-    Reader.readAsDataURL(file);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
 
-    Reader.onload = () => {
-      if (Reader.readyState === 2) {
-        setAvatar(Reader.result);
-      }
+    reader.onloadend = () => {
+      setAvatarPrev(reader.result);
+      setAvatar(file);
     };
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    await dispatch(registerUser(name, email, password, avatar));
+    const myForm = new FormData();
+    myForm.append('name', name);
+    myForm.append('email', email);
+    myForm.append('password', password);
+    myForm.append('file', avatar);
+    await dispatch(registerUser(myForm));
   };
 
 
@@ -84,7 +89,7 @@ export default function Signup() {
                 </div>
 
                 {/* <img  src={avatar} alt="profilepic" /> */}
-                {avatar && <img className='h-[100px] w-[100px] rounded-full border-2 border-black my-5' src={avatar} alt="post" />}
+                {avatarPrev && <img className='h-[100px] w-[100px] rounded-full border-2 border-black my-5' src={avatarPrev} alt="Profile_Image" />}
 
                 <input className='w-[90%]' type="file" accept='image/*' onChange={handleImageChange} />
 

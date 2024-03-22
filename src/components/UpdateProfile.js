@@ -20,22 +20,25 @@ export default function UpdateProfile() {
    const dispatch = useDispatch();
 
    const handleImageChange = (e) => {
+
       const file = e.target.files[0];
 
-      const Reader = new FileReader();
-      Reader.readAsDataURL(file);
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
 
-      Reader.onload = () => {
-         if (Reader.readyState === 2) {
-            setAvatarPrev(Reader.result);
-            setAvatar(Reader.result);
-         }
+      reader.onloadend = () => {
+         setAvatarPrev(reader.result);
+         setAvatar(file);
       };
    };
 
    const submitHandler = async (e) => {
       e.preventDefault();
-      await dispatch(updateProfile(name, email, avatar));
+      const myForm = new FormData();
+      myForm.append('name', name);
+      myForm.append('email', email);
+      myForm.append('file', avatar);
+      await dispatch(updateProfile(myForm));
       dispatch(loadUser());
    };
 
@@ -84,7 +87,7 @@ export default function UpdateProfile() {
                         <input type="file" accept='image/*' onChange={handleImageChange} />
                         {
                            updateProfileLoading ?
-                              <button  disabled className=' flex justify-center items-center bg-blue-500 w-[90%] py-3 my-5  text-white font-semibold'>
+                              <button disabled className=' flex justify-center items-center bg-blue-500 w-[90%] py-3 my-5  text-white font-semibold'>
                                  <div className="animate-pulse flex items-center justify-center " >
                                     <AiOutlineLoading className="animate-spin h-5 w-5 mr-3 " />
                                     updating...
